@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 struct valueWithCount{
   int value;
   unsigned int count;
 };
-
 
 
 int main(){
@@ -28,23 +28,42 @@ int main(){
 
   for (int x=0; x<=9; x++){
     for( int y=0; y<=x; y++){
-
+      
       if( valueArr[x] != valueWithCountArr[y].value ){
-        if( valueWithCountArr[y].value == 0){
+        if( valueWithCountArr[y].count == 0){
           valueWithCountArr[y].value = valueArr[x];
           valueWithCountArr[y].count = 1;
         }
-      }else{
-
+      }else {
+        valueWithCountArr[y].count++;
       }
+      
 
 
     }
   }
   printf("\n################################\n wartości w structach \n################################\n\n");
-  for( int i=0; i<10; i++)
+  for( int i=0; i<10; i++){
     printf("[%d] value: %d, count %d\n",i, valueWithCountArr[i].value, valueWithCountArr[i].count );
+  }
 
+  
+
+  unsigned int maxCount = 0;
+  for( int i=0; i<10; i++){
+    if(maxCount < valueWithCountArr[i].count){
+      maxCount = valueWithCountArr[i].count;
+    }
+  }
+
+  printf("\n################################\nmaxCount: %d\n################################\n", maxCount);
+
+  printf("\n################################\n wartości najczęstsze \n################################\n\n");
+  for( int i=0; i<10; i++){
+    if(maxCount == valueWithCountArr[i].count){
+      printf("[%d] value: %d, count %d\n",i, valueWithCountArr[i].value, valueWithCountArr[i].count );
+    }
+  }
 
   return 0;
 }
